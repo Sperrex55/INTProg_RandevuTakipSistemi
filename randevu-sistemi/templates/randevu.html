@@ -1,0 +1,137 @@
+{% extends "randevu_base.html" %}
+
+{% block content %}
+
+<div class="container my-5">
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="card text-white bg-info h-100 shadow-sm">
+          <div class="card-body d-flex align-items-center">
+            <i class="fas fa-user-md fa-3x me-3"></i>
+            <div>
+              <h5 class="card-title">Aile Hekimi Randevusu Al</h5>
+              <p>Bağlı bulunduğunuz aile hekiminizden randevu alabilirsiniz.</p>
+              <a href="#" id="aileHekimiBtn" class="btn btn-light btn-sm">Randevu Al</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card text-white bg-danger h-100 shadow-sm">
+          <div class="card-body d-flex align-items-center">
+            <i class="fas fa-hospital-alt fa-3x me-3"></i>
+            <div>
+              <h5 class="card-title">Hastane Randevusu Al</h5>
+              <p>Hastanelerdeki kliniklerden randevu alabilirsiniz.</p>
+              <a href="#" id="hastaneBtn" class="btn btn-light btn-sm">Randevu Al</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+<div id="aileHekimiModal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h2>Aile Hekimi Randevu Al</h2>
+  
+      <div class="doctor-box">
+        <i class="icon">👨‍⚕️</i> SERBÜLENT ÖZDEN
+      </div>
+      <div class="location-box">
+        <i class="icon">🏥</i> SAMSUN ÇARŞAMBA ALİ FUAT BAŞGİL AİLE SAĞLIĞI MERKEZİ
+      </div>
+      <div class="location-box">
+        <i class="icon">❤️</i> SAMSUN ÇARŞAMBA 021 NOLU AİLE HEKİMLİĞİ BİRİMİ
+      </div>
+      <div class="location-box">
+        <i class="icon">📍</i> ALİ FUAT BAŞGİL MAHALLESİ PAZARYERİ MEVKİİ SOKAK MERKEZ
+      </div>
+  
+      <button class="btn12 muayene">🗓️ Aile Hekimi Muayene</button>
+     
+    </div>
+  </div>
+  
+<div id="hastaneModal" class="modal13" style="display: none;">
+    <div class="modal-content13">
+      <span class="close-btn">&times;</span>
+      <h3>Arama Tipi Seçiniz</h3>
+  
+      <a  href="{{ url_for('randevuara') }}"><button class="btn13 genel">🔍 Genel Arama</button></a>
+      
+     <a  href="{{ url_for('konumagorehastane') }}"> <button class="btn13 konum">📍 Konuma Göre Arama</button></a>
+    </div>
+  </div>
+  
+
+  <div class="container my-5">
+    <ul class="nav nav-tabs mb-3" id="randevuTabs">
+      <li class="nav-item">
+        <a class="nav-link active" data-bs-toggle="tab" href="#aktif">Randevularım</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#gecmis">Geçmiş Randevularım</a>
+      </li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane fade show active" id="aktif">
+        <div class="text-center text-muted py-5">
+          <i class="far fa-calendar-alt fa-3x mb-3"></i>
+          <p>Aktif randevunuz yok.</p>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="gecmis">
+        <div class="text-center text-muted py-5">
+          <i class="fas fa-history fa-3x mb-3"></i>
+          <p>Geçmiş randevu bilgisi bulunamadı.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container my-5">
+    <h4 class="mb-4">En Yakın Hastaneler</h4>
+    <div class="list-group">
+      <div class="list-group-item d-flex justify-content-between align-items-center">
+        <span><i class="fas fa-hospital-symbol me-2"></i> BEYOĞLU GÖZ EĞİTİM VE ARAŞTIRMA HASTANESİ</span>
+        <span class="text-muted">Mesafe: 2 km</span>
+        <a href="#" class="btn btn-sm btn-primary">Randevu Al</a>
+      </div>
+      <div class="list-group-item d-flex justify-content-between align-items-center">
+        <span><i class="fas fa-hospital-symbol me-2"></i> TAKSİM EĞİTİM VE ARAŞTIRMA HASTANESİ</span>
+        <span class="text-muted">Mesafe: 2 km</span>
+        <a href="#" class="btn btn-sm btn-primary">Randevu Al</a>
+      </div>
+    </div>
+  </div>
+  
+
+ 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // Butona tıklanınca modal aç
+document.getElementById("aileHekimiBtn").addEventListener("click", function () {
+  document.getElementById("aileHekimiModal").style.display = "flex";
+});
+
+// X'e basınca modal kapat
+document.querySelector(".close-btn").addEventListener("click", function () {
+  document.getElementById("aileHekimiModal").style.display = "none";
+});
+
+// Hastane butonuna tıklanınca modal aç
+document.getElementById("hastaneBtn").addEventListener("click", function () {
+  document.getElementById("hastaneModal").style.display = "flex";
+});
+
+// X'e tıklanınca modal kapat
+document.querySelector("#hastaneModal .close-btn").addEventListener("click", function () {
+  document.getElementById("hastaneModal").style.display = "none";
+});
+
+</script>
+{% endblock %}

@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doktor Kayıt | MediRandevu</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+      <link rel="stylesheet" href="{{ url_for('static', filename='doktorkayıt.css') }}">
+
+  
+</head>
+<body>
+    <div class="register-container">
+        <div class="form-section">
+            <div class="form-content">
+                <div class="logo">
+                    <i class="fas fa-calendar-check logo-icon"></i>
+                   <a href="/" style="color: #4a6bff; text-decoration: none;"> <span class="logo-text">MediRandevu</span></a>
+                </div>
+                
+                <h3 class="form-title">Doktor Kayıt Formu</h3>
+                <p class="text-muted mb-2" style="font-size: 12px;">Tüm alanların doldurulması zorunludur.</p>
+                
+                <form id="registerForm" novalidate enctype="multipart/form-data">
+                  
+                    <div class="profile-picture-container">
+                        <label class="form-label">Profil Resmi</label>
+                        <label for="profilePicture" class="file-upload-label">
+                            <i class="fas fa-camera upload-icon"></i>
+                            <span id="fileLabelText">Resim Seç</span>
+                        </label>
+                        <input type="file" id="profilePicture" class="file-upload-input" accept="image/*">
+                        <img id="profilePreview" src="#" alt="Profil Resmi Önizleme" class="profile-picture-preview">
+                        <div id="profileError" class="error-message">Lütfen geçerli bir resim dosyası seçiniz (JPEG, PNG)</div>
+                    </div>
+                  
+                    <div>
+                        <label for="tcKimlikNo" class="form-label required-field">T.C. Kimlik No</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-id-card"></i></span>
+                            <input type="text" class="form-control" id="tcKimlikNo" placeholder="11 haneli TC kimlik numaranız" maxlength="11" required>
+                        </div>
+                        <div id="tcError" class="error-message">Lütfen geçerli bir TC Kimlik No giriniz</div>
+                    </div>
+                    
+                    <div class="row g-1">
+                        <div class="col-md-6">
+                            <label for="firstName" class="form-label required-field">Ad</label>
+                            <input type="text" class="form-control" id="firstName" placeholder="Adınız" required>
+                            <div id="nameError" class="error-message">Bu alan zorunludur</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="lastName" class="form-label required-field">Soyad</label>
+                            <input type="text" class="form-control" id="lastName" placeholder="Soyadınız" required>
+                        </div>
+                    </div>
+                    
+                    <div class="row g-1">
+                        <div class="col-md-6">
+                            <label for="uzmanlik" class="form-label required-field">Uzmanlık Alanı</label>
+                            <select class="form-select" id="uzmanlik" required>
+                                <option value="" selected disabled>Seçiniz</option>
+                                <option value="dahiliye">Dahiliye</option>
+                                <option value="kardiyoloji">Kardiyoloji</option>
+                                <option value="noroloji">Nöroloji</option>
+                                <option value="ortopedi">Ortopedi</option>
+                                <option value="goz">Göz Hastalıkları</option>
+                                <option value="dermatoloji">Dermatoloji</option>
+                                <option value="psikiyatri">Psikiyatri</option>
+                                <option value="cerrahi">Genel Cerrahi</option>
+                            </select>
+                            <div id="uzmanlikError" class="error-message">Lütfen uzmanlık alanınızı seçiniz</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="diplomaNo" class="form-label required-field">Diploma No</label>
+                            <input type="text" class="form-control" id="diplomaNo" placeholder="Diploma numaranız" required>
+                            <div id="diplomaError" class="error-message">Lütfen diploma numaranızı giriniz</div>
+                        </div>
+                    </div>
+                    
+                    <div class="row g-1">
+                        <div class="col-md-6">
+                            <label for="gender" class="form-label required-field">Cinsiyet</label>
+                            <select class="form-select" id="gender" required>
+                                <option value="" selected disabled>Seçiniz</option>
+                                <option value="male">Erkek</option>
+                                <option value="female">Kadın</option>
+                                
+                            </select>
+                            <div id="genderError" class="error-message">Lütfen cinsiyetinizi seçiniz</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="birthDate" class="form-label required-field">Doğum Tarihi</label>
+                            <input type="date" class="form-control" id="birthDate" required>
+                            <div id="dateError" class="error-message">Lütfen doğum tarihinizi seçiniz</div>
+                        </div>
+                    </div>
+                    
+  
+                    <div>
+                        <label for="email" class="form-label required-field">E-posta</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                            <input type="email" class="form-control" id="email" placeholder="E-posta adresiniz" required>
+                        </div>
+                        <div id="emailError" class="error-message">Lütfen geçerli bir e-posta adresi giriniz</div>
+                    </div>
+                    
+                    <div>
+                        <label for="phone" class="form-label required-field">Telefon</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                            <input type="tel" class="form-control" id="phone" placeholder="5XX XXX XX XX" required>
+                        </div>
+                        <div id="phoneError" class="error-message">Lütfen geçerli bir telefon numarası giriniz</div>
+                    </div>
+                    
+                   
+                    <div>
+                        <label for="password" class="form-label required-field">Şifre</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                            <input type="password" class="form-control" id="password" placeholder="Şifrenizi oluşturun" required>
+                        </div>
+                        <div id="passwordError" class="error-message">Şifreniz en az 8 karakter olmalıdır</div>
+                    </div>
+                    
+                    <div>
+                        <label for="confirmPassword" class="form-label required-field">Şifre Tekrar</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                            <input type="password" class="form-control" id="confirmPassword" placeholder="Şifrenizi tekrar girin" required>
+                        </div>
+                        <div id="confirmError" class="error-message">Şifreler uyuşmuyor</div>
+                    </div>
+                    
+               
+                    <div class="form-check policy-check">
+                        <input class="form-check-input" type="checkbox" id="policyCheck" required>
+                        <label class="form-check-label policy-text" for="policyCheck">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#policyModal">Üyelik ve Gizlilik Politikası</a>'nı okudum, kabul ediyorum.
+                        </label>
+                        <div id="policyError" class="error-message">Lütfen politikayı kabul ediniz</div>
+                    </div>
+                    
+                    <div class="form-check policy-check">
+                        <input class="form-check-input" type="checkbox" id="doctorAgreement" required>
+                        <label class="form-check-label policy-text" for="doctorAgreement">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#doctorModal">Doktor Sözleşmesi</a>'ni okudum, kabul ediyorum.
+                        </label>
+                        <div id="agreementError" class="error-message">Lütfen sözleşmeyi kabul ediniz</div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-register">
+                        <i class="fas fa-user-md me-1"></i> Doktor Olarak Kayıt Ol
+                    </button>
+                    
+                    <div class="login-link text-center">
+                        Zaten hesabınız var mı? <a href="{{ url_for('doktorgiris') }}">Giriş Yapın</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div class="image-section"></div>
+    </div>
+
+    
+    <div class="modal fade" id="policyModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Üyelik ve Gizlilik Politikası</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>Kişisel Verilerin Korunması</h6>
+                    <p>MediRandevu olarak, 6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") kapsamında kişisel verilerinizin güvenliğine büyük önem vermekteyiz.</p>
+                    
+                    <h6 class="mt-3">Veri Toplama</h6>
+                    <p>Kayıt sırasında topladığımız T.C. Kimlik No, ad, soyad, doğum tarihi, cinsiyet, diploma bilgileri ve iletişim bilgileri, sağlık hizmetlerinin sunumu için zorunlu olan bilgilerdir.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal">Anladım</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="modal fade" id="doctorModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Doktor Sözleşmesi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>Hizmet Koşulları</h6>
+                    <ol>
+                        <li>Platformda belirtilen randevu saatlerinize uymakla yükümlüsünüz.</li>
+                        <li>Hastalarınıza karşı mesleki etik kurallara uygun davranacaksınız.</li>
+                        <li>Acil durumlar dışında randevu iptallerini en az 24 saat önceden bildireceksiniz.</li>
+                        <li>Hasta bilgilerinin gizliliğini korumakla yükümlüsünüz.</li>
+                        <li>Platform üzerinden alınan randevular için herhangi bir ek ücret talep etmeyeceksiniz.</li>
+                    </ol>
+                    
+                    <h6 class="mt-3">Haklar ve Yükümlülükler</h6>
+                    <p>MediRandevu platformu, doktorların profil bilgilerini doğru ve güncel tutmalarını bekler. Yanlış veya eksik bilgi verilmesi durumunda hesabınız askıya alınabilir.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal">Anladım</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+       document.addEventListener('DOMContentLoaded', function() {
+    // Profil resmi önizleme fonksiyonu
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const preview = document.getElementById('profilePreview');
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+                document.getElementById('fileLabelText').textContent = 'Resmi Değiştir';
+                document.getElementById('profileError').style.display = 'none';
+            }
+            
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    
+    // Profil resmi seçildiğinde
+    document.getElementById('profilePicture').addEventListener('change', function() {
+        const file = this.files[0];
+        const errorElement = document.getElementById('profileError');
+        
+        if (file) {
+            // Dosya tipi kontrolü
+            const validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+            if (!validTypes.includes(file.type)) {
+                errorElement.textContent = 'Sadece JPEG veya PNG formatında resimler yükleyebilirsiniz';
+                errorElement.style.display = 'block';
+                this.value = '';
+                return;
+            }
+            
+            // Dosya boyutu kontrolü (max 2MB)
+            if (file.size > 2 * 1024 * 1024) {
+                errorElement.textContent = 'Resim boyutu 2MB\'dan büyük olamaz';
+                errorElement.style.display = 'block';
+                this.value = '';
+                return;
+            }
+            
+            readURL(this);
+        }
+    });
+
+    const tcInputs = document.querySelectorAll('input[id="tcKimlikNo"]');
+    tcInputs.forEach(input => {
+        input.addEventListener('input', function() {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+    });
+
+    // Telefon numarası formatlama
+    document.getElementById('phone')?.addEventListener('input', function(e) {
+        let x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
+        e.target.value = !x[2] ? x[1] : x[1] + ' ' + x[2] + (x[3] ? ' ' + x[3] : '') + (x[4] ? ' ' + x[4] : '');
+    });
+
+    if (document.getElementById('registerForm')) {
+        document.querySelectorAll('.error-message').forEach(el => {
+            el.style.display = 'none';
+        });
+
+        document.getElementById('password')?.addEventListener('input', validatePassword);
+        document.getElementById('confirmPassword')?.addEventListener('input', validatePasswordMatch);
+
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const isProfileValid = validateProfilePicture();
+            const isTcValid = validateTC();
+            const isNameValid = validateName();
+            const isLastNameValid = validateLastName();
+            const isUzmanlikValid = validateUzmanlik();
+            const isDiplomaValid = validateDiploma();
+            const isGenderValid = validateGender();
+            const isBirthDateValid = validateBirthDate();
+            const isEmailValid = validateEmail();
+            const isPhoneValid = validatePhone();
+            const isPasswordValid = validatePassword();
+            const isPasswordMatchValid = validatePasswordMatch();
+            const isPolicyValid = validatePolicy();
+            const isAgreementValid = validateAgreement();
+
+            if (isProfileValid && isTcValid && isNameValid && isLastNameValid && isUzmanlikValid && 
+                isDiplomaValid && isGenderValid && isBirthDateValid && isEmailValid && 
+                isPhoneValid && isPasswordValid && isPasswordMatchValid && 
+                isPolicyValid && isAgreementValid) {
+                alert('Doktor kayıt işlemi başarılı! Yönetici onayından sonra giriş yapabilirsiniz.');
+                // Formu temizle
+                this.reset();
+                document.getElementById('profilePreview').style.display = 'none';
+                document.getElementById('fileLabelText').textContent = 'Resim Seç';
+            } else {
+                // Hata varsa ilk hatalı alana odaklan
+                const firstError = document.querySelector('.error-message[style="display: block;"]');
+                if (firstError) {
+                    const inputId = firstError.id.replace('Error', '');
+                    const inputElement = document.getElementById(inputId);
+                    if (inputElement) {
+                        inputElement.focus();
+                    }
+                }
+            }
+        });
+
+        // Yeni doğrulama fonksiyonu - Profil Resmi
+        function validateProfilePicture() {
+            const profilePic = document.getElementById('profilePicture');
+            const errorElement = document.getElementById('profileError');
+            
+            // Profil resmi zorunlu değilse true döndür
+            // Eğer zorunlu yapmak isterseniz:
+            if (!profilePic.files || profilePic.files.length === 0) {
+                errorElement.textContent = 'Lütfen bir profil resmi seçiniz';
+                errorElement.style.display = 'block';
+                return false;
+            }
+            
+            errorElement.style.display = 'none';
+            return true;
+        }
+
+        // Diğer doğrulama fonksiyonları (önceki kodda olduğu gibi)
+        function validateTC() {
+            const tcValue = document.getElementById('tcKimlikNo').value;
+            const errorElement = document.getElementById('tcError');
+            
+            if (!tcValue || tcValue.length !== 11 || !/^\d{11}$/.test(tcValue)) {
+                errorElement.style.display = 'block';
+                return false;
+            }
+            
+            errorElement.style.display = 'none';
+            return true;
+        }
+
+        function validateName() {
+            const firstName = document.getElementById('firstName');
+            const errorElement = document.getElementById('nameError');
+            
+            if (!firstName.value.trim()) {
+                errorElement.textContent = 'Bu alan zorunludur';
+                errorElement.style.display = 'block';
+                return false;
+            }
+            
+            errorElement.style.display = 'none';
+            return true;
+        }
+
+        function validateLastName() {
+            const lastName = document.getElementById('lastName');
+            const errorElement = document.getElementById('nameError');
+            
+            if (!lastName.value.trim()) {
+                errorElement.textContent = 'Bu alan zorunludur';
+                errorElement.style.display = 'block';
+                return false;
+            }
+            
+            errorElement.style.display = 'none';
+            return true;
+        }
+
+        function validateUzmanlik() {
+            const uzmanlik = document.getElementById('uzmanlik');
+            const errorElement = document.getElementById('uzmanlikError');
+            
+            if (!uzmanlik.value) {
+                errorElement.style.display = 'block';
+                return false;
+            }
+            
+            errorElement.style.display = 'none';
+            return true;
+        }
+
+        function validateDiploma() {
+            const diplomaNo = document.getElementById('diplomaNo').value;
+            const errorElement = document.getElementById('diplomaError');
+            
+            if (!diplomaNo.trim()) {
+                errorElement.style.display = 'block';
+                return false;
+            }
+            
+            errorElement.style.display = 'none';
+            return true;
+        }
+
+        function validateGender() {
+            const gender = document.getElementById('gender');
+            const errorElement = document.getElementById('genderError');
+            
+            if (!gender.value) {
+                errorElement.style.display = 'block';
+                return false;
+            }
+            
+            errorElement.style.display = 'none';
+            return true;
+        }
+
+        function validateBirthDate() {
+            const birthDate = document.getElementById('birthDate');
+            const errorElement = document.getElementById('dateError');
+            
+            if (!birthDate.value) {
+                errorElement.style.display = 'block';
+                return false;
+            }
+            
+            // Yaş kontrolü (en az 25 yaşında olmalı)
+            const birthYear = new Date(birthDate.value).getFullYear();
+            const currentYear = new Date().getFullYear();
+            if (currentYear - birthYear < 25) {
+                errorElement.textContent = '25 yaşından küçükler kayıt olamaz';
+                errorElement.style.display = 'block';
+                return false;
+            }
+            
+            errorElement.style.display = 'none';
+            return true;
+        }
+
+        function validateEmail() {
+            const email = document.getElementById('email').value;
+            const errorElement = document.getElementById('emailError');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (!email || !emailRegex.test(email)) {
+                errorElement.style.display = 'block';
+                return false;
+            }
+            
+            errorElement.style.display = 'none';
+            return true;
+        }
+
+        function validatePhone() {
+            const phone = document.getElementById('phone').value;
+            const errorElement = document.getElementById('phoneError');
+            // 5XX XXX XX XX formatında en az 10 rakam
+            const digits = phone.replace(/\D/g, '');
+            
+            if (digits.length < 10) {
+                errorElement.style.display = 'block';
+                return false;
+            }
+            
+            errorElement.style.display = 'none';
+            return true;
+        }
+
+        function validatePassword() {
+            const password = document.getElementById('password');
+            const errorElement = document.getElementById('passwordError');
+            
+            if (!password.value || password.value.length < 8) {
+                errorElement.style.display = 'block';
+                return false;
+            }
+            
+            errorElement.style.display = 'none';
+            return true;
+        }
+
+        function validatePasswordMatch() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const errorElement = document.getElementById('confirmError');
+            
+            if (password !== confirmPassword) {
+                errorElement.style.display = 'block';
+                return false;
+            }
+            
+            errorElement.style.display = 'none';
+            return true;
+        }
+
+        function validatePolicy() {
+            const policyCheck = document.getElementById('policyCheck');
+            const errorElement = document.getElementById('policyError');
+            
+            if (!policyCheck.checked) {
+                errorElement.style.display = 'block';
+                return false;
+            }
+            
+            errorElement.style.display = 'none';
+            return true;
+        }
+
+        function validateAgreement() {
+            const agreementCheck = document.getElementById('doctorAgreement');
+            const errorElement = document.getElementById('agreementError');
+            
+            if (!agreementCheck.checked) {
+                errorElement.style.display = 'block';
+                return false;
+            }
+            
+            errorElement.style.display = 'none';
+            return true;
+        }
+    }
+});
+    </script>
+</body>
+</html>

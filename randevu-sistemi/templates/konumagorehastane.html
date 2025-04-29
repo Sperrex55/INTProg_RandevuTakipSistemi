@@ -1,0 +1,155 @@
+{% extends "randevu_base.html" %}
+
+{% block content %}
+   
+<link rel="stylesheet" href="{{ url_for('static', filename='konumagörehastane.css') }}">
+
+    <div class="search-header">
+        <div class="container">
+          <h2><i class="fas fa-map-marker-alt me-2"></i>En Yakın Hastane</h2>
+          <div class="d-flex align-items-center mt-3">
+            <select id="departmentSelect" class="form-select form-select-lg w-auto me-3" style="max-width: 250px;">
+              <option value="all">Tümü</option>
+              <option value="kalp">Kalp ve Damar Cerrahisi</option>
+              <option value="dahiliye">Dahiliye</option>
+              <option value="kardiyoloji">Kardiyoloji</option>
+              <option value="noroloji">Nöroloji</option>
+              <option value="ortopedi">Ortopedi</option>
+              <option value="cildiye">Cildiye</option>
+              <option value="goz">Göz Hastalıkları</option>
+              <option value="psikiyatri">Psikiyatri</option>
+              <option value="uroloji">Üroloji</option>
+              <option value="kbb">Kulak Burun Boğaz</option>
+            </select>
+            <span class="text-white-50"><i class="fas fa-info-circle me-2"></i>Konumunuz: Gümüşhane Merkez</span>
+          </div>
+        </div>
+      </div>
+      
+  
+      <div class="container mt-4" id="hospitalContainer">
+      
+        <div class="hospital-card card mb-3" data-department="kalp" data-lat="40.4621" data-lon="39.4890">
+          <div class="card-body">
+            <h5 class="card-title">Kalp ve Damar Hastanesi</h5>
+            <p class="card-text">Kalp ve Damar Cerrahisi hizmeti verilmektedir.</p>
+            <p><strong>Mesafe:</strong> <span class="distance">Hesaplanıyor...</span></p>
+           
+            <button class="btn btn-primary" onclick="alert('Randevu alındı!')">Randevu Al</button>
+          </div>
+        </div>
+      
+        <div class="hospital-card card mb-3" data-department="kardiyoloji" data-lat="40.4632" data-lon="39.4905">
+          <div class="card-body">
+            <h5 class="card-title">Kardiyoloji Kliniği</h5>
+            <p class="card-text">Kalp sağlığınız için kapsamlı kardiyoloji hizmeti.</p>
+            <p><strong>Mesafe:</strong> <span class="distance">Hesaplanıyor...</span></p>
+            
+            <button class="btn btn-primary" onclick="alert('Randevu alındı!')">Randevu Al</button>
+          </div>
+        </div>
+      
+
+        <div class="hospital-card card mb-3" data-department="noroloji" data-lat="40.4642" data-lon="39.4875">
+          <div class="card-body">
+            <h5 class="card-title">Nöro Bilim Hastanesi</h5>
+            <p class="card-text">Nöroloji alanında teşhis ve tedavi.</p>
+            <p><strong>Mesafe:</strong> <span class="distance">Hesaplanıyor...</span></p>
+          
+            <button class="btn btn-primary" onclick="alert('Randevu alındı!')">Randevu Al</button>
+          </div>
+        </div>
+      </div>
+      
+     
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+        <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const select = document.getElementById("departmentSelect");
+        const hospitalCards = document.querySelectorAll(".hospital-card");
+
+        select.addEventListener("change", function () {
+            const selected = this.value;
+
+            hospitalCards.forEach(card => {
+                const departments = card.getAttribute("data-department").split(",");
+
+                if (selected === "all" || departments.includes(selected)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        });
+    });
+
+
+
+    navigator.geolocation.getCurrentPosition(function(position) {
+  const userLat = position.coords.latitude;
+  const userLon = position.coords.longitude;
+
+  // Şimdi tüm hastaneler için uzaklık hesaplayacağız
+  calculateDistances(userLat, userLon);
+});
+const hospitals = [
+  {
+    name: "Gümüşhane Devlet Hastanesi",
+    lat: 40.4603,
+    lon: 39.4819,
+    elementId: "hospital1"
+  },
+  {
+    name: "Kalp ve Damar Hastanesi",
+    lat: 40.4621,
+    lon: 39.4890,
+    elementId: "hospital2"
+  },
+  // Diğer hastaneler buraya
+];
+// Haversine Formülü ile mesafe hesapla
+function getDistance(lat1, lon1, lat2, lon2) {
+  const R = 6371; // km
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(lat1 * Math.PI / 180) *
+    Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return (R * c).toFixed(2);
+}
+
+// Konum al ve mesafeleri hesapla
+navigator.geolocation.getCurrentPosition(function (position) {
+  const userLat = position.coords.latitude;
+  const userLon = position.coords.longitude;
+
+  document.querySelectorAll(".hospital-card").forEach(card => {
+    const lat = parseFloat(card.getAttribute("data-lat"));
+    const lon = parseFloat(card.getAttribute("data-lon"));
+    const distance = getDistance(userLat, userLon, lat, lon);
+    card.querySelector(".distance").innerText = `${distance} km`;
+  });
+});
+
+// Filtreleme işlemi
+document.getElementById("departmentSelect").addEventListener("change", function () {
+  const selected = this.value;
+  document.querySelectorAll(".hospital-card").forEach(card => {
+    const dept = card.getAttribute("data-department");
+    if (selected === "all" || selected === dept) {
+      card.style.display = "block";
+    } else {
+      card.style.display = "none";
+    }
+  });
+});
+
+</script>
+{% endblock %}
+
