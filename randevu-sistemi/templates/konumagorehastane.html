@@ -1,0 +1,262 @@
+{% extends "randevu_base.html" %}
+
+{% block content %}
+   
+<link rel="stylesheet" href="{{ url_for('static', filename='konumagörehastane.css') }}">
+
+<div class="search-header">
+    <div class="container">
+        <h2><i class="fas fa-map-marker-alt me-2"></i>En Yakın Hastane</h2>
+        <div class="d-flex align-items-center mt-3">
+            <select id="departmentSelect" class="form-select form-select-lg w-auto me-3" style="max-width: 250px;">
+                <option value="all">Tümü</option>
+                <option value="acil">Acil Servis</option>
+                <option value="kalp">Kalp ve Damar Cerrahisi</option>
+                <option value="dahiliye">Dahiliye</option>
+                <option value="kardiyoloji">Kardiyoloji</option>
+                <option value="noroloji">Nöroloji</option>
+                <option value="ortopedi">Ortopedi</option>
+                <option value="cildiye">Cildiye</option>
+                <option value="goz">Göz Hastalıkları</option>
+                <option value="psikiyatri">Psikiyatri</option>
+                <option value="uroloji">Üroloji</option>
+                <option value="kbb">Kulak Burun Boğaz</option>
+                <option value="genelcerrahi">Genel Cerrahi</option>
+                <option value="endokrinoloji">Endokrinoloji</option>
+                <option value="nefroloji">Nefroloji</option>
+                <option value="romatoloji">Romatoloji</option>
+                <option value="oncoloji">Onkoloji</option>
+                <option value="hematoloji">Hematoloji</option>
+                <option value="gast">Gastroenteroloji</option>
+                <option value="enfeksiyon">Enfeksiyon Hastalıkları</option>
+                <option value="anestezi">Anesteziyoloji ve Reanimasyon</option>
+                <option value="ftr">Fizik Tedavi ve Rehabilitasyon</option>
+                <option value="gogus">Göğüs Hastalıkları</option>
+                <option value="kadindogum">Kadın Doğum ve Jinekoloji</option>
+                <option value="cocuk">Çocuk Sağlığı ve Hastalıkları</option>
+                <option value="plastik">Plastik Cerrahi</option>
+                <option value="radyoloji">Radyoloji</option>
+                <option value="dermatoloji">Dermatoloji</option>
+            </select>
+           <span id="user-location" class="text-white-50">
+    <i class="fas fa-info-circle me-2"></i>Konumunuz: Hesaplanıyor...
+</span>
+
+        </div>
+    </div>
+</div>
+
+      
+  
+     <div class="container mt-4" id="hospitalContainer">
+
+
+ <div class="hospital-card card mb-3" data-department="acil" data-lat="39.9208" data-lon="32.8541">
+        <div class="card-body">
+            <h5 class="card-title">Ankara Şehir Hastanesi - Acil Servis</h5>
+            <p class="card-text">24 saat acil sağlık hizmetleri sunulmaktadır.</p>
+            <p><strong>Adres:</strong> Bilkent, Ankara</p>
+            <p><strong>Telefon:</strong> (0312) 552 60 00</p>
+            <p><strong>Mesafe:</strong> <span class="distance">Hesaplanıyor...</span></p>
+            <button class="btn btn-primary"  href="{{ url_for('randevu_olustur') }}">Randevu Al</button>
+        </div>
+    </div>
+
+
+    <div class="hospital-card card mb-3" data-department="genelcerrahi" data-lat="40.4603" data-lon="39.4819">
+        <div class="card-body">
+            <h5 class="card-title">Gümüşhane Devlet Hastanesi</h5>
+            <p class="card-text">Genel cerrahi ve dahiliye hizmetleri sunulmaktadır.</p>
+            <p><strong>Adres:</strong> İnönü Caddesi, 29010 Hasanbey/Gümüşhane</p>
+            <p><strong>Telefon:</strong> (0456) 213 15 56</p>
+            <p><strong>Mesafe:</strong> <span class="distance">Hesaplanıyor...</span></p>
+            <button class="btn btn-primary"  href="{{ url_for('randevu_olustur') }}">Randevu Al</button>
+        </div>
+    </div>
+
+    <div class="hospital-card card mb-3" data-department="kardiyoloji" data-lat="39.9208" data-lon="32.8541">
+        <div class="card-body">
+            <h5 class="card-title">Ankara Şehir Hastanesi</h5>
+            <p class="card-text">Kardiyoloji ve kalp damar cerrahisi hizmetleri sunulmaktadır.</p>
+            <p><strong>Adres:</strong> Bilkent, Ankara</p>
+            <p><strong>Telefon:</strong> (0312) 552 60 00</p>
+            <p><strong>Mesafe:</strong> <span class="distance">Hesaplanıyor...</span></p>
+            <button class="btn btn-primary" href="{{ url_for('randevu_olustur') }}">Randevu Al</button>
+        </div>
+    </div>
+
+  
+
+    <div class="hospital-card card mb-3" data-department="plastik" data-lat="40.9820" data-lon="29.0320">
+        <div class="card-body">
+            <h5 class="card-title">Reyap Hastanesi İstanbul</h5>
+            <p class="card-text">Plastik cerrahi ve estetik hizmetleri sunulmaktadır.</p>
+            <p><strong>Adres:</strong> 2011. Sokak, 34515 Yeşilkent/İstanbul</p>
+            <p><strong>Telefon:</strong> 0850 473 7777</p>
+            <p><strong>Mesafe:</strong> <span class="distance">Hesaplanıyor...</span></p>
+            <button class="btn btn-primary"  href="{{ url_for('randevu_olustur') }}">Randevu Al</button>
+        </div>
+    </div>
+
+
+     <div class="hospital-card card mb-3" data-department="ftr" data-lat="40.9175" data-lon="29.1550">
+        <div class="card-body">
+            <h5 class="card-title">Sevgi Fizik Tedavi ve Tıp Merkezi</h5>
+            <p class="card-text">Fizik tedavi ve rehabilitasyon hizmetleri sunulmaktadır.</p>
+            <p><strong>Adres:</strong> Yıldırım Mahallesi, Eski Edirne Asfaltı Bir Sokak No:2, Bayrampaşa, İstanbul</p>
+            <p><strong>Telefon:</strong> 0530 285 41 80</p>
+            <p><strong>Mesafe:</strong> <span class="distance">Hesaplanıyor...</span></p>
+            <button class="btn btn-primary"  href="{{ url_for('randevu_olustur') }}">Randevu Al</button>
+        </div>
+    </div>
+
+    <div class="hospital-card card mb-3" data-department="genelcerrahi" data-lat="41.1985" data-lon="36.7234">
+    <div class="card-body">
+        <h5 class="card-title">Çarşamba Devlet Hastanesi</h5>
+        <p class="card-text">Genel cerrahi, dahiliye ve diğer sağlık hizmetleri sunulmaktadır.</p>
+        <p><strong>Adres:</strong> Helvacalı Mah. Kavakdibi Mevkii, Çarşamba / Samsun</p>
+        <p><strong>Telefon:</strong> (0362) 833 80 80</p>
+        <p><strong>Mesafe:</strong> <span class="distance">Hesaplanıyor...</span></p>
+        <button class="btn btn-primary"  href="{{ url_for('randevu_olustur') }}">Randevu Al</button>
+    </div>
+</div>
+
+
+<div class="hospital-card card mb-3" data-department="kardiyoloji" data-lat="40.9820" data-lon="29.0320">
+        <div class="card-body">
+            <h5 class="card-title">Medical Park Trabzon Karadeniz Hastanesi</h5>
+            <p class="card-text">Kalp sağlığı için kapsamlı kardiyoloji hizmetleri.</p>
+            <p><strong>Adres:</strong> İnönü Mahallesi Yavuz Selim Bulvarı No: 190, Trabzon</p>
+            <p><strong>Telefon:</strong> (0462) 229 70 70</p>
+            <p><strong>Mesafe:</strong> <span class="distance">Hesaplanıyor...</span></p>
+            <button class="btn btn-primary"  href="{{ url_for('randevu_olustur') }}">Randevu Al</button>
+        </div>
+    </div>
+
+    <div class="hospital-card card mb-3" data-department="goz" data-lat="40.9175" data-lon="29.1550">
+        <div class="card-body">
+            <h5 class="card-title">İmperial Hastanesi</h5>
+            <p class="card-text">Göz hastalıkları ve genel sağlık hizmetleri sunulmaktadır.</p>
+            <p><strong>Adres:</strong> Kemerkaya Mahallesi Devlet Sahil Yolu Iller Sokak No:27, Trabzon</p>
+            <p><strong>Telefon:</strong> (0462) 444 44 61</p>
+            <p><strong>Mesafe:</strong> <span class="distance">Hesaplanıyor...</span></p>
+            <button class="btn btn-primary"  href="{{ url_for('randevu_olustur') }}">Randevu Al</button>
+        </div>
+    </div>
+</div>
+
+      
+     
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+        <script>
+   
+
+document.querySelectorAll('.btn.btn-primary').forEach(button => {
+  button.addEventListener('click', () => {
+    window.location.href = "{{ url_for('randevu_olustur') }}";
+  });
+});
+
+
+    navigator.geolocation.getCurrentPosition(function(position) {
+  const userLat = position.coords.latitude;
+  const userLon = position.coords.longitude;
+
+  // Şimdi tüm hastaneler için uzaklık hesaplayacağız
+  calculateDistances(userLat, userLon);
+});
+const hospitals = [
+  {
+    name: "Gümüşhane Devlet Hastanesi",
+    lat: 40.4603,
+    lon: 39.4819,
+    elementId: "hospital1"
+  },
+  {
+    name: "Kalp ve Damar Hastanesi",
+    lat: 40.4621,
+    lon: 39.4890,
+    elementId: "hospital2"
+  },
+  // Diğer hastaneler buraya
+];
+// Haversine Formülü ile mesafe hesapla
+function getDistance(lat1, lon1, lat2, lon2) {
+  const R = 6371; // km
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(lat1 * Math.PI / 180) *
+    Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return (R * c).toFixed(2);
+}
+
+// Konum al ve mesafeleri hesapla
+navigator.geolocation.getCurrentPosition(function (position) {
+  const userLat = position.coords.latitude;
+  const userLon = position.coords.longitude;
+
+  document.querySelectorAll(".hospital-card").forEach(card => {
+    const lat = parseFloat(card.getAttribute("data-lat"));
+    const lon = parseFloat(card.getAttribute("data-lon"));
+    const distance = getDistance(userLat, userLon, lat, lon);
+    card.querySelector(".distance").innerText = `${distance} km`;
+  });
+});
+
+// Filtreleme işlemi
+document.getElementById("departmentSelect").addEventListener("change", function () {
+  const selected = this.value;
+  document.querySelectorAll(".hospital-card").forEach(card => {
+    const dept = card.getAttribute("data-department");
+    if (selected === "all" || selected === dept) {
+      card.style.display = "block";
+    } else {
+      card.style.display = "none";
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(success, error);
+    } else {
+        document.getElementById("user-location").innerText = "Konum bilgisi alınamıyor";
+    }
+});
+
+function success(position) {
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
+
+    // OpenStreetMap API kullanarak konum bilgisini çekelim
+    fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
+        .then(response => response.json())
+        .then(data => {
+            const city = data.address.city || data.address.town || data.address.village || "Bilinmeyen Bölge";
+            document.getElementById("user-location").innerHTML =
+                `<i class="fas fa-info-circle me-2"></i>Konumunuz: ${city}`;
+        })
+        .catch(() => {
+            document.getElementById("user-location").innerText = "Konum bilgisi alınamıyor";
+        });
+}
+
+function error() {
+    document.getElementById("user-location").innerText = "Konum erişimi reddedildi";
+}
+
+
+
+
+
+</script>
+{% endblock %}
+

@@ -1,0 +1,218 @@
+:root {
+    --primary-blue: #0d6efd;
+    --secondary-green: #28a745;
+    --accent-red: #dc3545;
+    --light-gray: #f8f9fa;
+    --dark-gray: #6c757d;
+    --card-shadow: rgba(0, 0, 0, 0.1);
+}
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--light-gray);
+    color: #333;
+}
+
+.navbar {
+    background-color: white;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    padding: 15px 0;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: var(--primary-blue);
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand .logo-icon {
+    color: var(--secondary-green);
+    margin-right: 10px;
+    font-size: 1.5rem;
+}
+
+.nav-link {
+    font-weight: 500;
+    color: #555;
+    margin: 0 10px;
+    transition: all 0.3s;
+}
+
+.nav-link:hover {
+    color: var(--primary-blue);
+}
+
+.dropdown-menu {
+    font-size: 0.95rem;
+}
+
+.search-header {
+    background: linear-gradient(135deg, #4361ee, #3a0ca3);
+    color: white;
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+}
+
+.result-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.clinic-title {
+    color: var(--primary-blue);
+    border-bottom: 2px solid var(--primary-blue);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+#hospitalContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* İkişerli yan yana */
+    gap: 20px; /* Kartlar arasındaki boşluk */
+}
+
+.hospital-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: all 0.3s ease-in-out;
+    border-left: 6px solid var(--primary-blue);
+    overflow: hidden;
+}
+
+.hospital-card:hover {
+   
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobil uyumluluk (Tek sütuna düşmesi için) */
+@media (max-width: 768px) {
+    #hospitalContainer {
+        grid-template-columns: 1fr; /* Küçük ekranlarda tek sütun */
+    }
+}
+
+
+.hospital-card .card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.hospital-card .card-title {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--primary-blue);
+}
+
+.hospital-card .card-text {
+    font-size: 1rem;
+    color: var(--dark-gray);
+}
+
+.hospital-card p {
+    margin-bottom: 8px;
+}
+
+.hospital-card .distance {
+    font-weight: bold;
+    color: var(--secondary-green);
+}
+
+.btn-randevu {
+    background: var(--primary-blue);
+    color: white;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-randevu:hover {
+    background: #0b5ed7;
+    transform: translateY(-3px);
+}
+
+footer {
+    background-color: #2c3e50;
+    color: white;
+    padding: 60px 0 30px;
+    margin-top: 80px;
+}
+
+.footer-logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.footer-links h5 {
+    font-weight: 600;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-links h5:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 30px;
+    height: 2px;
+    background: var(--secondary-green);
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    color: #bdc3c7;
+    transition: all 0.3s;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    color: white;
+    padding-left: 5px;
+}
+
+.social-icons a {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    text-align: center;
+    line-height: 40px;
+    color: white;
+    margin-right: 10px;
+    transition: all 0.3s;
+}
+
+.social-icons a:hover {
+    background: var(--primary-blue);
+    transform: translateY(-3px);
+}
+
+.copyright {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 20px;
+    margin-top: 30px;
+    color: #bdc3c7;
+    font-size: 0.9rem;
+}

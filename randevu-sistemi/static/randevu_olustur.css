@@ -1,0 +1,80 @@
+.randevu-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.randevu-container h3 {
+    text-align: center;
+    font-size: 26px;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.randevu-container .form-label {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 6px;
+}
+
+.randevu-container .form-control {
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    padding: 10px 14px;
+    font-size: 15px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.randevu-container .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.4);
+    outline: none;
+}
+
+.randevu-container .mb-3 {
+    margin-bottom: 20px;
+}
+
+.randevu-container .btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    width: 100%;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.randevu-container .btn-primary:hover {
+    background-color: #0056b3;
+    transform: scale(1.03);
+}
+
+.randevu-container select.form-control {
+    cursor: pointer;
+}
+
+.randevu-container input[type="date"],
+.randevu-container input[type="time"] {
+    cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .randevu-container {
+        padding: 20px;
+    }
+
+    .randevu-container h3 {
+        font-size: 22px;
+    }
+
+    .randevu-container .btn-primary {
+        font-size: 15px;
+        padding: 10px;
+    }
+}

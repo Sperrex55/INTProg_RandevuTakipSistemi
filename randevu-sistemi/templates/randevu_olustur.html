@@ -1,0 +1,102 @@
+{% extends "randevu_base.html" %}
+
+{% block content %}
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='randevu_olustur.css') }}">
+
+
+
+<div class="randevu-container my-5">
+    <h3 class="mb-4">Randevu Al</h3>
+    <form action="{{ url_for('randevu_olustur') }}" method="POST">
+   
+       
+<!-- Hasta Adı (readonly gösterim) -->
+<div class="mb-3">
+    <label class="form-label">Ad Soyad</label>
+    <input type="text" class="form-control" value="{{ user.ad }} {{ user.soyad }} " readonly>
+    
+</div>
+
+
+<div class="mb-3">
+    <label class="form-label">TC Kimlik No</label>
+    <input type="text" class="form-control" value="{{ user.tc_kimlik_no  }}" readonly>
+    <input type="hidden" name="tc_no" value="{{ user.tc_kimlik_no }}">
+</div>
+
+<!-- Telefon Numarası -->
+<div class="mb-3">
+    <label class="form-label">Telefon Numarası</label>
+    <input type="text" class="form-control" value="{{ user.telefon }}" readonly>
+    <input type="hidden" name="phone_number" value="{{ user.telefon }}">
+</div>
+
+
+
+        <div class="mb-3">
+            <label for="doctor_id" class="form-label">Doktor Bölümü</label>
+             <select class="form-control" id="doctor_id" name="doctor_id" required>
+                <option value="all">Tümü</option>
+                <option value="acil">Acil Servis</option>
+                <option value="kalp">Kalp ve Damar Cerrahisi</option>
+                <option value="dahiliye">Dahiliye</option>
+                <option value="kardiyoloji">Kardiyoloji</option>
+                <option value="noroloji">Nöroloji</option>
+                <option value="ortopedi">Ortopedi</option>
+                <option value="cildiye">Cildiye</option>
+                <option value="goz">Göz Hastalıkları</option>
+                <option value="psikiyatri">Psikiyatri</option>
+                <option value="uroloji">Üroloji</option>
+                <option value="kbb">Kulak Burun Boğaz</option>
+                <option value="genelcerrahi">Genel Cerrahi</option>
+                <option value="endokrinoloji">Endokrinoloji</option>
+                <option value="nefroloji">Nefroloji</option>
+                <option value="romatoloji">Romatoloji</option>
+                <option value="oncoloji">Onkoloji</option>
+                <option value="hematoloji">Hematoloji</option>
+                <option value="gast">Gastroenteroloji</option>
+                <option value="enfeksiyon">Enfeksiyon Hastalıkları</option>
+                <option value="anestezi">Anesteziyoloji ve Reanimasyon</option>
+                <option value="ftr">Fizik Tedavi ve Rehabilitasyon</option>
+                <option value="gogus">Göğüs Hastalıkları</option>
+                <option value="kadindogum">Kadın Doğum ve Jinekoloji</option>
+                <option value="cocuk">Çocuk Sağlığı ve Hastalıkları</option>
+                <option value="plastik">Plastik Cerrahi</option>
+                <option value="radyoloji">Radyoloji</option>
+                <option value="dermatoloji">Dermatoloji</option>
+            </select>
+        </div>
+
+        <!-- Randevu Tarihi -->
+        <div class="mb-3">
+            <label for="appointment_date" class="form-label">Randevu Tarihi</label>
+            <input type="date" class="form-control" id="appointment_date" name="appointment_date" required>
+        </div>
+
+        <!-- Randevu Saati -->
+        <div class="mb-3">
+            <label for="appointment_time" class="form-label">Randevu Saati</label>
+            <input type="time" class="form-control" id="appointment_time" name="appointment_time" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Randevu Al</button>
+    </form>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const tcInput = document.getElementById("tc_no");
+    const phoneInput = document.getElementById("phone_number");
+
+    tcInput.addEventListener("input", function() {
+        if (this.value.length > 11) this.value = this.value.slice(0,11);
+    });
+
+    phoneInput.addEventListener("input", function() {
+        if (this.value.length > 11) this.value = this.value.slice(0,11);
+    });
+});
+</script>
+
+{% endblock %}

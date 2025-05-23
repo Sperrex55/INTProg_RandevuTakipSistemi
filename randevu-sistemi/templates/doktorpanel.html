@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MediRandevu | Doktor Paneli</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='doktorpanel.css') }}" />
+</head>
+<body>
+   
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+  <div class="container">
+    <a class="navbar-brand" href="#">
+      <i class="fas fa-calendar-check logo-icon"></i>
+      MediRandevu
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="{{ url_for('doktorpanel') }}"><i class="fas fa-home me-1"></i> Panel</a>
+        </li>
+      </ul>
+      <div class="ms-lg-3 mt-3 mt-lg-0">
+        <a href="{{ url_for('vatandas') }}" class="btn btn-outline-danger"><i class="fas fa-sign-out-alt me-1"></i> Çıkış Yap</a>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="alert-container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+<div class="container py-5">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-lg-3 mb-4">
+      <div class="doctor-sidebar text-center">
+        <h4 class="fw-semibold">Hoş Geldin, {{ current_user.dr_ad }} {{ current_user.dr_soyad }}</h4 >
+        <div class="d-flex justify-content-center mb-4">
+          <span class="badge bg-primary rounded-pill px-3 py-2">
+            <p style="font-size:13px;" class="mb-0">{{ current_user.dr_hastane_adi }}</p>
+          </span>
+          
+        </div>
+        <h5 class="mb-3"><i class="fas fa-calendar-alt me-2 text-primary"></i> Bugünkü Randevular</h5>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <span>Toplam Randevu</span>
+          <span class="badge bg-primary rounded-pill">{{ randevular|length }}</span>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <span>Onay Bekleyen</span>
+          <span class="badge bg-warning rounded-pill">{{ randevular|selectattr('durum','equalto','Onay Bekliyor')|list|length }}</span>
+        </div>
+        <div class="d-flex justify-content-between align-items-center">
+          <span>Onaylanan</span>
+          <span class="badge bg-success rounded-pill">{{ randevular|selectattr('durum','equalto','Onaylandı')|list|length }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+   <div class="col-lg-9">
+                <div class="mb-4">
+                    {% if randevular %}
+                        {% for r in randevular %}
+                        <div class="appointment-card mb-3">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <div>
+                                    <h5 class="mb-1">{{ r.hasta_adi }}</h5>
+                                    <p class="text-muted mb-1"><i class="fas fa-id-card me-2"></i> TC: {{ r.tc_no }}</p>
+                                    <p class="text-muted mb-0"><i class="fas fa-phone me-2"></i> {{ r.telefon }}</p>
+                                </div>
+                                <div>
+                                    <span class="appointment-status 
+                                        {% if r.durum=='Onaylandı' %}status-confirmed
+                                        {% elif r.durum in ['Reddedildi','İptal Edildi'] %}status-cancelled
+                                        {% else %}status-pending{% endif %}">
+                                        {{ r.durum or 'Onay Bekliyor' }}
+                                    </span>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <p class="mb-1"><i class="fas fa-calendar-alt me-2 text-primary"></i> {{ r.randevu_tarihi }}</p>
+                                    <p class="mb-0"><i class="fas fa-clock me-2 text-primary"></i> {{ r.randevu_saati }}</p>
+                                </div>
+                                <div>
+                                    <button class="btn-status btn-success onayla-btn"  data-randevu-id="{{ r.id }}"><i class="fas fa-check me-1"></i> Onayla</button>
+                                    <button class="btn-status btn-danger reddet-btn" data-randevu-id="{{ r.id }}"><i class="fas fa-times me-1"></i> Reddet</button>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-center text-muted py-5"><i class="fas fa-calendar-alt fa-3x mb-3"></i><br>Henüz randevu bulunmamaktadır.</p>
+                    {% endif %}
+                </div>
+            </div>
+      
+
+      <!-- İstatistikler -->
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title"><i class="fas fa-chart-bar me-2 text-primary"></i> Randevu İstatistikleri</h5>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="d-flex align-items-center p-3 bg-light rounded">
+                <div class="bg-primary text-white rounded-circle p-3 me-3">
+                  <i class="fas fa-calendar-check fa-2x"></i>
+                </div>
+                <div>
+                  <h6 class="mb-0">Toplam Randevu</h6>
+                  <h3 class="mb-0">{{ randevular|length }}</h3>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="d-flex align-items-center p-3 bg-light rounded">
+                <div class="bg-success text-white rounded-circle p-3 me-3">
+                  <i class="fas fa-check-circle fa-2x"></i>
+                </div>
+                <div>
+                  <h6 class="mb-0">Onaylanan</h6>
+                  <h3 class="mb-0">{{ randevular|selectattr('durum','equalto','Onaylandı')|list|length }}</h3>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="d-flex align-items-center p-3 bg-light rounded">
+                <div class="bg-warning text-white rounded-circle p-3 me-3">
+                  <i class="fas fa-clock fa-2x"></i>
+                </div>
+                <div>
+                  <h6 class="mb-0">Bekleyen</h6>
+                  <h3 class="mb-0">{{ randevular|selectattr('durum','equalto','Onay Bekliyor')|list|length }}</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-4 mb-4">
+              <span class="footer-logo">MediRandevu</span>
+              <p>Sağlık randevularınızı kolayca yönetebileceğiniz modern ve kullanıcı dostu hastane randevu sistemi.</p>
+              <div class="social-icons mt-3">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-4 mb-4">
+              <div class="footer-links">
+                <h5>Hızlı Linkler</h5>
+                <ul>
+                  <li><a href="/">Anasayfa</a></li>
+                  <li><a href="{{ url_for('giris') }}">Randevu Al</a></li>
+                  <li><a href="{{ url_for('bolumler') }}">Bölümler</a></li>
+                  <li><a href="{{ url_for('hakkımızda') }}">Hakkımızda</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 mb-4">
+              <div class="footer-links">
+                <h5>İletişim</h5>
+                <ul class="contact-info">
+                  <li><i class="fas fa-map-marker-alt me-2"></i>Gümüşhane/Gümüşhane Merkez</li>
+                  <li><i class="fas fa-phone me-2"></i> (0212) 123 45 67</li>
+                  <li><i class="fas fa-envelope me-2"></i> info@medirandevu.com</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="copyright text-center">
+            <p>© 2025 MediRandevu. Tüm hakları saklıdır. <a href="#" class="text-white">Gizlilik Politikası</a> | <a href="#" class="text-white">Kullanım Şartları</a></p>
+          </div>
+        </div>
+      </footer>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+      const socket = io();
+
+
+    $(document).ready(function() {
+  $('.onayla-btn').click(function() {
+    const randevuId = $(this).data('randevu-id');
+    $.ajax({
+      url: '/randevu/onayla',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({ id: randevuId }),
+      success: function(response) {
+        alert('Randevu onaylandı.');
+        location.reload();
+      },
+      error: function() {
+        alert('Randevu onaylanırken hata oluştu.');
+      }
+    });
+  });
+
+  $('.reddet-btn').click(function() {
+    const randevuId = $(this).data('randevu-id');
+    $.ajax({
+      url: '/randevu/reddet',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({ id: randevuId }),
+      success: function(response) {
+        alert('Randevu reddedildi.');
+        location.reload();
+      },
+      error: function() {
+        alert('Randevu reddedilirken hata oluştu.');
+      }
+    });
+  });
+});
+
+
+$(document).ready(function() {
+    $('.onayla-btn').click(function() {
+      const randevuId = $(this).data('randevu-id');
+      $.post('/onayla', {randevu_id: randevuId}, function(data) {
+        if(data.success) {
+          // Sadece durum badge'ini güncelle
+          $(`[data-randevu-id="${randevuId}"] .appointment-status`)
+            .text('Onaylandı')
+            .removeClass('status-pending status-cancelled')
+            .addClass('status-confirmed');
+        }
+      });
+    });
+
+    $('.reddet-btn').click(function() {
+      const randevuId = $(this).data('randevu-id');
+      $.post('/reddet', {randevu_id: randevuId}, function(data) {
+        if(data.success) {
+          $(`[data-randevu-id="${randevuId}"] .appointment-status`)
+            .text('Reddedildi')
+            .removeClass('status-pending status-confirmed')
+            .addClass('status-cancelled');
+        }
+      });
+    });
+  });
+
+    </script>
+</body>
+</html>
+

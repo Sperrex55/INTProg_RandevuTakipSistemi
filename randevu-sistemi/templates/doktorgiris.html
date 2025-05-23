@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Yap | MediRandevu</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='doktorgiris.css') }}">
+
+    
+</head>
+<body>
+    <div class="alert-container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+
+    <div class="form-section">
+        <div class="form-container">
+            <div class="login-header">
+               <a href="/" style="text-decoration: none;"><h1 class="login-title">MediRandevu</h1></a>
+                <p class="login-subtitle">Doktor girişi yapın</p>
+            </div>
+            
+            <form id="loginForm" method="POST" action="{{ url_for('doktorgiris') }}" novalidate>
+                <div class="form-group">
+                    <label for="tcKimlikNo" class="form-label required">T.C. Kimlik No</label>
+                    <div class="input-icon">
+                        <i class="fas fa-id-card"></i>
+                        <input type="text" class="form-control" id="tcKimlikNo" name="dr_tc_kimlik_no" placeholder="11 haneli TC kimlik numaranız" maxlength="11" required autocomplete="off">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" class="form-label required">Şifre</label>
+                    <div class="input-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Şifrenizi girin" required>
+                    </div>
+                </div>
+                
+                <div class="forgot-password">
+                    <a href="#">
+                        <i class="fas fa-question-circle me-1"></i> Şifremi unuttum
+                    </a>
+                </div>
+                
+                <button type="submit" class="btn btn-login"> Giriş Yap </button>
+                
+                <div class="register-link">
+                    Hesabınızmı yok? <a href="{{ url_for('doktorkayit') }}">üye ol</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="image-section"></div>
+
+
+    <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-forgot-password">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="forgotPasswordModalLabel">Şifre Sıfırlama</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted mb-4">Şifrenizi sıfırlamak için kayıtlı e-posta adresinizi girin. Size bir sıfırlama bağlantısı göndereceğiz.</p>
+                    
+                    <form id="forgotPasswordForm">
+                        <div class="mb-3">
+                            <label for="resetEmail" class="form-label">E-posta Adresi</label>
+                            <div class="input-icon">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" class="form-control" id="resetEmail" placeholder="ornek@email.com" required>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-submit">Gönder</button>
+                    </form>
+                    
+                    <div class="text-center mt-3">
+                        <p class="small text-muted">E-postayı almazsanız lütfen spam klasörünüzü kontrol edin.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const form = e.target;
+    const formData = new FormData(form);
+    
+    // Client-side validasyon
+    const tcKimlikNo = formData.get('dr_tc_kimlik_no');
+    const password = formData.get('password');
+    
+    if (!tcKimlikNo || !password) {
+        showAlert('Lütfen TC Kimlik No ve şifrenizi giriniz!', 'danger');
+        return;
+    }
+    
+    if (tcKimlikNo.length !== 11 || !/^\d+$/.test(tcKimlikNo)) {
+        showAlert('Lütfen geçerli bir TC Kimlik No giriniz (11 haneli)!', 'danger');
+        return;
+    }
+    
+    // Formu normal submit et (AJAX yerine)
+    form.submit();
+});
+
+// TC Kimlik No input kontrolü
+document.getElementById('tcKimlikNo').addEventListener('input', function(e) {
+    this.value = this.value.replace(/[^0-9]/g, '');
+    if (this.value.length > 11) {
+        this.value = this.value.slice(0, 11);
+    }
+});
+
+// Alert gösterme fonksiyonu
+function showAlert(message, type) {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+    alertDiv.role = 'alert';
+    alertDiv.innerHTML = `
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    `;
+    
+    const container = document.querySelector('.alert-container') || document.querySelector('.form-container');
+    if (container) {
+        // Önceki alertleri temizle
+        const existingAlerts = container.querySelectorAll('.alert');
+        existingAlerts.forEach(alert => alert.remove());
+        
+        container.prepend(alertDiv);
+        
+        // 5 saniye sonra otomatik kapat
+        setTimeout(() => {
+            const bsAlert = new bootstrap.Alert(alertDiv);
+            bsAlert.close();
+        }, 5000);
+    }
+}
+    </script>
+</body>
+</html>

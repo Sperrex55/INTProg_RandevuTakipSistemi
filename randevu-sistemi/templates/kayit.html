@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Üye Ol | MediRandevu</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='kayıt.css') }}">
+</head>
+<body>
+    <div class="register-container">
+    
+    <div class="alert-container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+        <div class="form-section">
+            <div class="logo">
+                <i class="fas fa-calendar-check logo-icon"></i>
+                <a href="{{ url_for('vatandas') }}" class="logo-link">
+                    <span class="logo-text">MediRandevu</span>
+                </a>
+            </div>
+            
+            <h2 class="form-title">Hasta Kayıt Formu</h2>
+            <p class="form-subtitle">Tüm alanların doldurulması zorunludur.</p>
+            
+            <form id="registerForm" method="POST" action="{{ url_for('kayit') }}" novalidate>
+               
+                <div class="mb-3">
+                    <label for="tcKimlikNo" class="form-label">T.C. Kimlik No</label>
+                    <input type="text" class="form-control" id="tcKimlikNo" name="tc_kimlik_no" 
+                           placeholder="11 haneli TC kimlik numaranız" maxlength="11" required>
+                    <div id="tcError" class="invalid-feedback">Lütfen geçerli bir TC Kimlik No giriniz</div>
+                </div>
+                
+
+                <div class="mb-3">
+                   <label for="phoneNumber" class="form-label">Telefon Numarası</label>
+                 <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                <input type="text" class="form-control" id="phoneNumber" name="telefon" 
+               placeholder="05xx xxx xx xx" maxlength="11" required>
+    </div>
+    <div id="phoneError" class="invalid-feedback">Lütfen geçerli bir telefon numarası giriniz</div>
+</div>
+
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="firstName" class="form-label">Ad</label>
+                        <input type="text" class="form-control" id="firstName" name="ad" placeholder="Adınız" required>
+                        <div id="nameError" class="invalid-feedback">Bu alan zorunludur</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="lastName" class="form-label">Soyad</label>
+                        <input type="text" class="form-control" id="lastName" name="soyad" placeholder="Soyadınız" required>
+                        <div id="lastNameError" class="invalid-feedback">Bu alan zorunludur</div>
+                    </div>
+                </div>
+                
+               
+                <div class="mb-3">
+                    <label for="email" class="form-label">E-posta Adresi</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                        <input type="email" class="form-control" id="email" name="email" 
+                               placeholder="ornek@email.com" required>
+                    </div>
+                    <div id="emailError" class="invalid-feedback">Lütfen geçerli bir e-posta adresi giriniz</div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="gender" class="form-label">Cinsiyet</label>
+                        <select class="form-select" id="gender" name="cinsiyet" required>
+                            <option value="" selected disabled>Seçiniz</option>
+                            <option value="male">Erkek</option>
+                            <option value="female">Kadın</option>
+                        </select>
+                        <div id="genderError" class="invalid-feedback">Lütfen cinsiyetinizi seçiniz</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="birthDate" class="form-label">Doğum Tarihi</label>
+                        <input type="date" class="form-control" id="birthDate" name="dogum_tarihi" required>
+                        <div id="dateError" class="invalid-feedback">Lütfen doğum tarihinizi seçiniz</div>
+                    </div>
+                </div>
+                
+                <!-- Şifre Bilgileri -->
+                <div class="mb-3">
+                    <label for="password" class="form-label">Şifre</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                        <input type="password" class="form-control" id="password" name="sifre" 
+                               placeholder="Şifrenizi oluşturun (en az 8 karakter)" required>
+                    </div>
+                    <div id="passwordError" class="invalid-feedback">Şifreniz en az 8 karakter olmalıdır</div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="confirmPassword" class="form-label">Şifre Tekrar</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                        <input type="password" class="form-control" id="confirmPassword" name="sifre_tekrar" 
+                               placeholder="Şifrenizi tekrar girin" required>
+                    </div>
+                    <div id="confirmError" class="invalid-feedback">Şifreler uyuşmuyor</div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-register w-100">
+                    <i class="fas fa-user-plus me-2"></i>Üye Ol
+                </button>
+                
+                <div class="text-center mt-3">
+                    Zaten hesabınız var mı? <a href="{{ url_for('giris') }}" class="login-link">Giriş Yapın</a>
+                </div>
+            </form>
+        </div>
+        
+        <div class="image-section"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // TC Kimlik No sadece sayı kabul et
+            const tcInput = document.getElementById('tcKimlikNo');
+            if (tcInput) {
+                tcInput.addEventListener('input', function() {
+                    this.value = this.value.replace(/[^0-9]/g, '');
+                });
+            }
+
+            // Form validasyonu
+            const form = document.getElementById('registerForm');
+            if (form) {
+                // Hata mesajlarını başlangıçta gizle
+                document.querySelectorAll('.invalid-feedback').forEach(el => {
+                    el.style.display = 'none';
+                });
+
+                // Şifre ve email validasyonu
+                document.getElementById('password')?.addEventListener('input', validatePassword);
+                document.getElementById('confirmPassword')?.addEventListener('input', validatePasswordMatch);
+                document.getElementById('email')?.addEventListener('input', validateEmail);
+
+                form.addEventListener('submit', function(e) {
+                    if (!validateForm()) {
+                        e.preventDefault();
+                    }
+                });
+            }
+            // Telefon numarası validasyonu
+function validatePhone() {
+    const phone = document.getElementById('phoneNumber')?.value;
+    const phoneRegex = /^05\d{9}$/;
+    if (!phoneRegex.test(phone)) {
+        return showError('phoneError', 'Lütfen geçerli bir telefon numarası giriniz');
+    }
+    return hideError('phoneError');
+}
+
+            function showError(elementId, message) {
+                const errorElement = document.getElementById(elementId);
+                if (errorElement) {
+                    errorElement.textContent = message;
+                    errorElement.style.display = 'block';
+                }
+                return false;
+            }
+
+            function hideError(elementId) {
+                const errorElement = document.getElementById(elementId);
+                if (errorElement) {
+                    errorElement.style.display = 'none';
+                }
+                return true;
+            }
+
+            function validateForm() {
+                const validations = [
+                    validateTC(),
+                    validateName(),
+                    validateLastName(),
+                    validateEmail(),
+                    validatePhone(),
+                    validateGender(),
+                    validateBirthDate(),
+                    validatePassword(),
+                    validatePasswordMatch()
+                ];
+                
+                return validations.every(valid => valid === true);
+            }
+
+            function validateTC() {
+                const tcValue = document.getElementById('tcKimlikNo')?.value;
+                if (!tcValue || tcValue.length !== 11 || !/^\d{11}$/.test(tcValue)) {
+                    return showError('tcError', 'Lütfen geçerli bir TC Kimlik No giriniz');
+                }
+                return hideError('tcError');
+            }
+
+            function validateName() {
+                const firstName = document.getElementById('firstName')?.value;
+                if (!firstName?.trim()) {
+                    return showError('nameError', 'Bu alan zorunludur');
+                }
+                return hideError('nameError');
+            }
+
+            function validateLastName() {
+                const lastName = document.getElementById('lastName')?.value;
+                if (!lastName?.trim()) {
+                    return showError('lastNameError', 'Bu alan zorunludur');
+                }
+                return hideError('lastNameError');
+            }
+
+            function validateEmail() {
+                const email = document.getElementById('email')?.value;
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    return showError('emailError', 'Lütfen geçerli bir e-posta adresi giriniz');
+                }
+                return hideError('emailError');
+            }
+
+            function validateGender() {
+                const gender = document.getElementById('gender')?.value;
+                if (!gender) {
+                    return showError('genderError', 'Lütfen cinsiyetinizi seçiniz');
+                }
+                return hideError('genderError');
+            }
+
+            function validateBirthDate() {
+                const birthDate = document.getElementById('birthDate')?.value;
+                if (!birthDate) {
+                    return showError('dateError', 'Lütfen doğum tarihinizi seçiniz');
+                }
+                return hideError('dateError');
+            }
+
+            function validatePassword() {
+                const password = document.getElementById('password')?.value;
+                if (!password || password.length < 8) {
+                    return showError('passwordError', 'Şifreniz en az 8 karakter olmalıdır');
+                }
+                return hideError('passwordError');
+            }
+
+            function validatePasswordMatch() {
+                const password = document.getElementById('password')?.value;
+                const confirmPassword = document.getElementById('confirmPassword')?.value;
+                if (password !== confirmPassword) {
+                    return showError('confirmError', 'Şifreler uyuşmuyor');
+                }
+                return hideError('confirmError');
+            }
+        });
+
+        const phoneInput = document.getElementById('phoneNumber');
+if (phoneInput) {
+    phoneInput.addEventListener('input', function() {
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
+}
+
+    </script>
+</body>
+</html>

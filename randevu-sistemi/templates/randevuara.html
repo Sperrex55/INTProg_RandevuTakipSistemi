@@ -1,0 +1,265 @@
+{% extends "randevu_base.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='randevuara.css') }}">
+
+  
+    <div class="randevu-ara-container">
+        <div class="randevu-header">
+            <h2><i class="fas fa-calendar-check me-2"></i>Randevu Ara</h2>
+        </div>
+        
+        <form class="randevu-form">
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <label for="il" class="form-label">İl</label>
+                    <select class="form-select" id="il">
+                        <option selected>Seçiniz</option>
+                        <option>Adana</option>
+                        <option>Adıyaman</option>
+                        <option>Afyonkarahisar</option>
+                        <option>Ağrı</option>
+                        <option>Amasya</option>
+                        <option>Ankara</option>
+                        <option>Antalya</option>
+                        <option>Artvin</option>
+                        <option>Aydın</option>
+                        <option>Balıkesir</option>
+                        <option>Bilecik</option>
+                        <option>Bingöl</option>
+                        <option>Bitlis</option>
+                        <option>Bolu</option>
+                        <option>Burdur</option>
+                        <option>Bursa</option>
+                        <option>Çanakkale</option>
+                        <option>Çankırı</option>
+                        <option>Çorum</option>
+                        <option>Denizli</option>
+                        <option>Diyarbakır</option>
+                        <option>Edirne</option>
+                        <option>Elazığ</option>
+                        <option>Erzincan</option>
+                        <option>Erzurum</option>
+                        <option>Eskişehir</option>
+                        <option>Gaziantep</option>
+                        <option>Giresun</option>
+                        <option>Gümüşhane</option>
+                        <option>Hakkari</option>
+                        <option>Hatay</option>
+                        <option>Isparta</option>
+                        <option>Mersin</option>
+                        <option>İstanbul</option>
+                        <option>İzmir</option>
+                        <option>Kars</option>
+                        <option>Kastamonu</option>
+                        <option>Kayseri</option>
+                        <option>Kırklareli</option>
+                        <option>Kırşehir</option>
+                        <option>Kocaeli</option>
+                        <option>Konya</option>
+                        <option>Kütahya</option>
+                        <option>Malatya</option>
+                        <option>Manisa</option>
+                        <option>Kahramanmaraş</option>
+                        <option>Mardin</option>
+                        <option>Muğla</option>
+                        <option>Muş</option>
+                        <option>Nevşehir</option>
+                        <option>Niğde</option>
+                        <option>Ordu</option>
+                        <option>Rize</option>
+                        <option>Sakarya</option>
+                        <option>Samsun</option>
+                        <option>Siirt</option>
+                        <option>Sinop</option>
+                        <option>Sivas</option>
+                        <option>Tekirdağ</option>
+                        <option>Tokat</option>
+                        <option>Trabzon</option>
+                        <option>Tunceli</option>
+                        <option>Şanlıurfa</option>
+                        <option>Uşak</option>
+                        <option>Van</option>
+                        <option>Yozgat</option>
+                        <option>Zonguldak</option>
+                        <option>Aksaray</option>
+                        <option>Bayburt</option>
+                        <option>Karaman</option>
+                        <option>Kırıkkale</option>
+                        <option>Batman</option>
+                        <option>Şırnak</option>
+                        <option>Bartın</option>
+                        <option>Ardahan</option>
+                        <option>Iğdır</option>
+                        <option>Yalova</option>
+                        <option>Karabük</option>
+                        <option>Kilis</option>
+                        <option>Osmaniye</option>
+                        <option>Düzce</option>
+                    </select>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <label for="ilce" class="form-label">İlçe</label>
+                    <select class="form-select" id="ilce">
+                        <option selected>Önce il seçiniz</option>
+                        <!-- İlçeler dinamik olarak JavaScript ile yüklenecek -->
+                    </select>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <label for="klinik" class="form-label">Klinik</label>
+                    <select class="form-select" id="klinik">
+                        <option selected>Klinik Seçiniz</option>
+                        <option>Dahiliye</option>
+                        <option>Kardiyoloji</option>
+                        <option>Nöroloji</option>
+                        <option>Ortopedi</option>
+                        <option>Göz Hastalıkları</option>
+                        <option>Kulak Burun Boğaz</option>
+                        <option>Genel Cerrahi</option>
+                        <option>Üroloji</option>
+                        <option>Kadın Doğum</option>
+                        <option>Çocuk Sağlığı</option>
+                        <option>Dermatoloji</option>
+                        <option>Psikiyatri</option>
+                        <option>Fizik Tedavi</option>
+                    </select>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <label for="hastane" class="form-label">Hastane</label>
+                    <select class="form-select" id="hastane">
+                        <option selected>FARK ETMEZ</option>
+                        <option>Şehir Hastanesi</option>
+                        <option>Üniversite Hastanesi</option>
+                        <option>Eğitim ve Araştırma Hastanesi</option>
+                        <option>Devlet Hastanesi</option>
+                        <option>Özel Hastane</option>
+                        <option>Ağız ve Diş Sağlığı Merkezi</option>
+                    </select>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <label for="muayene-yeri" class="form-label">Muayene Yeri</label>
+                    <select class="form-select" id="muayene-yeri">
+                        <option selected>FARK ETMEZ</option>
+                        <option>Poliklinik</option>
+                        <option>ACİL</option>
+                        <option>Check-up</option>
+                        <option>Ameliyathane</option>
+                        <option>Yoğun Bakım</option>
+                    </select>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <label for="hekim" class="form-label">Hekim</label>
+                    <select class="form-select" id="hekim">
+                        <option selected>FARK ETMEZ</option>
+                        <option>Dr. Ahmet Yılmaz</option>
+                        <option>Dr. Ayşe Demir</option>
+                        <option>Dr. Mehmet Kaya</option>
+                        <option>Dr. Fatma Şahin</option>
+                        <option>Dr. Mustafa Arslan</option>
+                        <option>Dr. Zeynep Aktaş</option>
+                    </select>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <label for="baslangic-tarihi" class="form-label">Başlangıç Tarihi</label>
+                    <input type="date" class="form-control" id="baslangic-tarihi">
+                </div>
+            </div>
+            
+            <div class="randevu-actions mt-4">
+                <button type="button" class="btn btn-randevu">
+                    <i class="fas fa-search"></i> Randevu Ara
+                </button>
+               
+                <button type="button" class="btn btn-danger">
+                    <i class="fas fa-broom"></i> Temizle
+                </button>
+            </div>
+        </form>
+    </div>
+    
+    <script>
+    // İl seçildiğinde ilçeleri yükleme
+    document.getElementById('il').addEventListener('change', function() {
+        const ilSecimi = this.value;
+        const ilceSelect = document.getElementById('ilce');
+        
+        // Önce mevcut seçenekleri temizle (ilk seçenek hariç)
+        while (ilceSelect.options.length > 1) {
+            ilceSelect.remove(1);
+        }
+        
+        if (ilSecimi === 'Seçiniz') {
+            ilceSelect.innerHTML = '<option selected>Önce il seçiniz</option>';
+            return;
+        }
+        
+        // İlçeleri yükle
+        ilceSelect.innerHTML = '<option selected>Seçiniz</option><option>FARK ETMEZ</option>';
+        
+        // İllere göre ilçe ekleme (örnek olarak birkaç il)
+        if (ilSecimi === 'İstanbul') {
+            const ilceler = ['Adalar', 'Arnavutköy', 'Ataşehir', 'Avcılar', 'Bağcılar', 'Bahçelievler', 
+                            'Bakırköy', 'Başakşehir', 'Bayrampaşa', 'Beşiktaş', 'Beykoz', 'Beylikdüzü', 
+                            'Beyoğlu', 'Büyükçekmece', 'Çatalca', 'Çekmeköy', 'Esenler', 'Esenyurt', 
+                            'Eyüpsultan', 'Fatih', 'Gaziosmanpaşa', 'Güngören', 'Kadıköy', 'Kağıthane', 
+                            'Kartal', 'Küçükçekmece', 'Maltepe', 'Pendik', 'Sancaktepe', 'Sarıyer', 
+                            'Silivri', 'Sultanbeyli', 'Sultangazi', 'Şile', 'Şişli', 'Tuzla', 'Ümraniye', 
+                            'Üsküdar', 'Zeytinburnu'];
+            ilceler.forEach(ilce => {
+                ilceSelect.add(new Option(ilce, ilce));
+            });
+        }
+        else if (ilSecimi === 'Ankara') {
+            const ilceler = ['Akyurt', 'Altındağ', 'Ayaş', 'Bala', 'Beypazarı', 'Çamlıdere', 'Çankaya', 
+                            'Çubuk', 'Elmadağ', 'Etimesgut', 'Evren', 'Gölbaşı', 'Güdül', 'Haymana', 
+                            'Kalecik', 'Kazan', 'Keçiören', 'Kızılcahamam', 'Mamak', 'Nallıhan', 
+                            'Polatlı', 'Pursaklar', 'Sincan', 'Şereflikoçhisar', 'Yenimahalle'];
+            ilceler.forEach(ilce => {
+                ilceSelect.add(new Option(ilce, ilce));
+            });
+        }
+        else if (ilSecimi === 'İzmir') {
+            const ilceler = ['Aliağa', 'Balçova', 'Bayındır', 'Bayraklı', 'Bergama', 'Beydağ', 'Bornova', 
+                            'Buca', 'Çeşme', 'Çiğli', 'Dikili', 'Foça', 'Gaziemir', 'Güzelbahçe', 
+                            'Karabağlar', 'Karaburun', 'Karşıyaka', 'Kemalpaşa', 'Kınık', 'Kiraz', 
+                            'Konak', 'Menderes', 'Menemen', 'Narlıdere', 'Ödemiş', 'Seferihisar', 
+                            'Selçuk', 'Tire', 'Torbalı', 'Urla'];
+            ilceler.forEach(ilce => {
+                ilceSelect.add(new Option(ilce, ilce));
+            });
+        }
+        else {
+            // Diğer iller için genel ilçeler
+            const genelIlceler = ['Merkez', 'Akçakoca', 'Alaplı', 'Aydıncık', 'Ayvacık', 'Bafra', 'Bandırma', 
+                                 'Biga', 'Bodrum', 'Bor', 'Boyabat', 'Bulancak', 'Çarşamba', 'Çaycuma', 
+                                 'Çermik', 'Çorlu', 'Çubuk', 'Darende', 'Devrek', 'Dinar', 'Düzce', 
+                                 'Edremit', 'Ereğli', 'Ergani', 'Eskipazar', 'Fatsa', 'Finike', 'Gemlik', 
+                                 'Gerede', 'Gölcük', 'Gönen', 'Gördes', 'Güroymak', 'Halfeti', 'Havza', 
+                                 'Hayrabolu', 'Hendek', 'Horasan', 'Ilgın', 'İmamoğlu', 'İnegöl', 'İpsala', 
+                                 'İskilip', 'İznik', 'Kadınhanı', 'Kaman', 'Karaağaç', 'Karasu', 'Karapınar', 
+                                 'Kargı', 'Kars', 'Kastamonu', 'Kaş', 'Kemah', 'Kemer', 'Kestel', 'Kırkağaç', 
+                                 'Kızıltepe', 'Kocaali', 'Kofçaz', 'Kumluca', 'Kurşunlu', 'Küre', 'Lüleburgaz', 
+                                 'Malkara', 'Marmara', 'Mihalıççık', 'Milas', 'Mucur', 'Mustafakemalpaşa', 
+                                 'Nazilli', 'Niksar', 'Nurdağı', 'Ortaca', 'Ortaköy', 'Osmaneli', 'Osmancık', 
+                                 'Perşembe', 'Pınarbaşı', 'Pozantı', 'Refahiye', 'Safranbolu', 'Salihli', 
+                                 'Sandıklı', 'Sapanca', 'Saray', 'Sarayköy', 'Sarıkaya', 'Sarıveliler', 
+                                 'Sason', 'Savur', 'Seben', 'Selendi', 'Serik', 'Seydişehir', 'Silifke', 
+                                 'Simav', 'Sivas', 'Soma', 'Söke', 'Suluova', 'Sungurlu', 'Susurluk', 
+                                 'Şarkışla', 'Şarköy', 'Şebinkarahisar', 'Taşköprü', 'Tavşanlı', 'Tekkeköy', 
+                                 'Terme', 'Tirebolu', 'Tomarza', 'Tonya', 'Torul', 'Tosya', 'Tunceli', 
+                                 'Uzunköprü', 'Vezirköprü', 'Viranşehir', 'Yalvaç', 'Yatağan', 'Yayladağı', 
+                                 'Yerköy', 'Yozgat', 'Yüksekova', 'Zile', 'Zonguldak'];
+            genelIlceler.forEach(ilce => {
+                ilceSelect.add(new Option(ilce, ilce));
+            });
+        }
+    });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    {% endblock %}
