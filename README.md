@@ -1,59 +1,74 @@
-📌 Proje Başlığı
-Randevu Takip Sistemi
+# 📌 Proje Başlığı
 
-🧾 Proje Tanıtımı
-Bu uygulama, vatandaşların kolay ve hızlı şekilde hastane randevusu almasını, doktorların kendi panelleri üzerinden randevuları takip ve yönetmesini sağlayan modern bir web tabanlı hastane randevu sistemidir. Flask framework’ü kullanılarak geliştirilmiş olup, vatandaş, doktor ve yönetici giriş sistemleri; randevu oluşturma, görüntüleme ve arama işlemleri yapılabilir.
+> Randevu Takip Sistemi
 
-🚀 Tasarım Özellikleri
-Modern ve responsive (mobil uyumlu) tasarım
-Bootstrap 5 framework kullanımı
-Bootstrap Icons entegrasyonu
-Kolay kullanılabilir ve sade arayüz
-Kullanıcı, doktor ve yönetici panelleri
-Randevu oluşturma, görüntüleme ve yönetme
-Konuma göre hastane görüntüleme
-Kayıt ve giriş sistemi
+## 🧾 Proje Tanıtımı
 
-🚀 Proje Özellikleri
-🔐 Kullanıcı, doktor ve yönetici kayıt & giriş işlemleri
-📅 Randevu oluşturma, görüntüleme ve silme
-🩺 Doktor paneli üzerinden randevu takibi
-🏥 Konuma göre hastane listeleme
-📊 Yönetici paneli ile sistem yönetimi
-📦 JSON dosyaları ile veri saklama
-💻 Modern ve responsive arayüz (Bootstrap 5)
-🎨 Bootstrap Icons ile ikon desteği
+Bu uygulama, vatandaşların kolay ve hızlı şekilde hastane randevusu almasını, doktorların kendi panelleri üzerinden randevuları takip ve yönetmesini sağlayan modern bir web tabanlı hastane randevu sistemidir.
+Flask framework’ü kullanılarak geliştirilmiş olup, vatandaş, doktor ve yönetici giriş sistemleri; randevu oluşturma, görüntüleme ve arama işlemleri yapılabilir.
 
-Kullanılan Teknolojiler
-HTML5
-CSS3
-Bootstrap 5
-Bootstrap Icons
-Jinja2 Template Engine (Flask ile)
+### 🚀 Tasarım Özellikleri
+
+- Modern ve responsive (mobil uyumlu) tasarım
+- Bootstrap 5 framework kullanımı
+- Bootstrap Icons entegrasyonu
+- Kolay kullanılabilir ve sade arayüz
+- Kullanıcı, doktor ve yönetici panelleri
+- Randevu oluşturma, görüntüleme ve yönetme
+- Konuma göre hastane görüntüleme
+- Kayıt ve giriş sistemi
+
+### 🚀 Proje Özellikleri
+
+- 🔐 Kullanıcı, doktor ve yönetici kayıt & giriş işlemleri
+- 📅 Randevu oluşturma, görüntüleme ve silme
+- 🩺 Doktor paneli üzerinden randevu takibi
+- 🏥 Konuma göre hastane listeleme
+- 📊 Yönetici paneli ile sistem yönetimi
+- 📦 JSON dosyaları ile veri saklama
+- 💻 Modern ve responsive arayüz (Bootstrap 5)
+- 🎨 Bootstrap Icons ile ikon desteği
 
 
-⚙️ Kurulum ve Çalıştırma
-✅ Gereksinimler
-Örneğin:
+## Kullanılan Teknolojiler
+
+- HTML5
+- CSS3
+- Bootstrap 5
+- Bootstrap Icons
+- Jinja2 Template Engine (Flask ile)
+
+
+## ⚙️ Kurulum ve Çalıştırma
+
+### ✅ Gereksinimler
+Örneğin:  
 
 Bu projeyi çalıştırmak için bilgisayarınızda aşağıdaki yazılımlar kurulu olmalıdır:
 
-Python 3.x
+- Python 3.x
+
+
 Ayrıca aşağıdaki kütüphaneler kullanılmaktadır:
 
-flask
-Flask-Login 0.6.3
-Flask-SQLALchemy 3.1.1
-WerkZeug 3.0.1
-Flask-SocketIO 5.3.6
-python-socketio 5.11.2
-python-engineio 4.9.1
-Not: Bu kütüphaneleri yüklemek için pip install -r requirements.txt terminal'e yazarak otomatik olarak yükleyebilirsiniz.
+- flask
+- Flask-Login 0.6.3
+- Flask-SQLALchemy 3.1.1
+- WerkZeug 3.0.1
+- Flask-SocketIO 5.3.6
+- python-socketio 5.11.2
+- python-engineio 4.9.1
 
-🚀 Uygulamayı Başlatma
-Örneğin: Uygulama tarayıcınızda http://127.0.0.1:5000/ adresinde çalışacaktır.
+> Not: Bu kütüphaneleri yüklemek için `pip install -r requirements.txt` terminal'e yazarak otomatik olarak yükleyebilirsiniz.
 
-📂 Proje Dosya Yapısı
+### 🚀 Uygulamayı Başlatma
+Örneğin: 
+Uygulama tarayıcınızda http://127.0.0.1:5000/ adresinde çalışacaktır.
+
+
+## 📂 Proje Dosya Yapısı
+
+```
 randevu-sistemi/
 ├── app.py                       # Ana Python uygulama dosyası
 ├── requirements.txt             # Gerekli Python paketlerini içeren dosya
@@ -108,3 +123,6 @@ randevu-sistemi/
 │   └── hastane.db               # SQLite veritabanı dosyası
 │
 └── README.md                    # Proje açıklama dosyası
+```
+
+
