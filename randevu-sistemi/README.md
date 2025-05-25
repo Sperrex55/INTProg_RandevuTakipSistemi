@@ -83,7 +83,7 @@ randevu-sistemi/
 │   ├── resimler/                # Görsel dosyalar
 │   │   ├── anasayfaresim.jpg
 │   │   ├── eczanelogo.png
-│   │   ├── hakkinda.jpg
+│   │   ├── hakkında.jpg
 │   │   ├── tcsağlıkbakanlığı.png
 │   │   ├── ttb.png
 │   │   └── ...
